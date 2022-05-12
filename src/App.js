@@ -8,7 +8,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  
 } from "react-router-dom";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
 
   function alertfunc(prototype, color) {
     setAlert(prototype);
-    if (color == 'yellow') {
+    if (color === 'yellow') {
       setAlertCol('warning');
     }
     else {
@@ -57,13 +57,18 @@ function App() {
     <>
 
      
-        <Navbar titles="TextUtils" aboutText="About TextUtils" mode={mode} toggle={toggle} />
-        <Alert alert={alert} alertcol={alertcol} />
-       
-          <TextForm heading="Enter your text to analyze" mode={mode} alertfunc={alertfunc} />
+        
           
         
-     
+     <Router>
+        <Navbar titles="TextUtils" aboutText="About TextUtils" mode={mode} toggle={toggle} />
+        <Alert alert={alert} alertcol={alertcol} />
+        <Routes>
+          <Route path="/" element={<TextForm heading="Enter your text to analyze" mode={mode} alertfunc={alertfunc} />}></Route>
+          <Route path="/about" element={<About mode={mode} />}></Route>
+        </Routes>
+      </Router>
+
 
 
 
@@ -75,14 +80,9 @@ function App() {
 }
 export default App;
 
-/*<Router>
-        <Navbar titles="TextUtils" aboutText="About TextUtils" mode={mode} toggle={toggle} />
+/*<Navbar titles="TextUtils" aboutText="About TextUtils" mode={mode} toggle={toggle} />
         <Alert alert={alert} alertcol={alertcol} />
-        <Routes>
-          <Route path="/" element={<TextForm heading="Enter your text to analyze" mode={mode} alertfunc={alertfunc} />}></Route>
-          <Route path="/about" element={<About mode={mode} />}></Route>
-        </Routes>
-      </Router>
-
+       
+          <TextForm heading="Enter your text to analyze" mode={mode} alertfunc={alertfunc} />
 */
 
