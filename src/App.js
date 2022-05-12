@@ -1,25 +1,88 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import About from './components/About';
+import Alert from './components/Alert';
+import Navbar from './components/Navbar';
+import TextForm from './components/TextForm';
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
+
+  const [mode, setMode] = useState('white');
+
+  //for alert
+  const [alert, setAlert] = useState('');
+  const [alertcol, setAlertCol] = useState('');
+
+
+
+  function alertfunc(prototype, color) {
+    setAlert(prototype);
+    if (color == 'yellow') {
+      setAlertCol('warning');
+    }
+    else {
+      setAlertCol('success');
+    }
+
+    document.getElementById('alert').style.display = 'block';
+
+
+
+    setTimeout(() => {
+      document.getElementById('alert').style.display = 'none';
+    }, 5000);
+  }
+
+
+
+
+  function toggle() {
+    if (mode === 'dark') {
+      setMode('light');
+      document.body.style.backgroundColor = 'white';
+    }
+    else {
+      setMode('dark');
+      document.body.style.backgroundColor = '#444444';
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+
+     
+        <Navbar titles="TextUtils" aboutText="About TextUtils" mode={mode} toggle={toggle} />
+        <Alert alert={alert} alertcol={alertcol} />
+       
+          <TextForm heading="Enter your text to analyze" mode={mode} alertfunc={alertfunc} />
+          
+        
+     
+
+
+
+
+
+
+    </>
   );
 }
-
 export default App;
+
+/*<Router>
+        <Navbar titles="TextUtils" aboutText="About TextUtils" mode={mode} toggle={toggle} />
+        <Alert alert={alert} alertcol={alertcol} />
+        <Routes>
+          <Route path="/" element={<TextForm heading="Enter your text to analyze" mode={mode} alertfunc={alertfunc} />}></Route>
+          <Route path="/about" element={<About mode={mode} />}></Route>
+        </Routes>
+      </Router>
+
+*/
+
